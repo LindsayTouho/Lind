@@ -1,0 +1,119 @@
+{% extends 'admin_base.html' %}
+{% block title%}文章{% endblock %}
+{% block content %}
+    <div class="article_counter">
+        来自当前用户的文章有{{ articles.count() }}篇
+        <a href="{{ url_for("admin.editor") }}"><span class="btn-small green right">新建</span></a>
+    </div>
+
+    {% set loop_time=[] %}
+    <ul class="collapsible">
+    <li>
+        {% for article in articles %}
+            {% if article.time.year not in loop_time %}
+                {% if loop_time|length != 0 %}
+                    </div></li><li>
+                {% endif %}
+                <dt class="collapsible-header">{{ article.time.year }}</dt>
+                <div class="collapsible-body">
+                {% if loop_time.append(article.time.year) %}{% endif %}
+            {% endif %}
+            <dd class="archive-lines">
+                <span>
+                    <a href="{{ url_for('main.detail', article_id = article.id) }}">{{ article.title }}
+                        {% if article.type!='post'%}({{ article.type }}){% endif %}
+                    </a>
+                    <a href="{{ url_for('admin.delete') }}?id={{ article.id }}" class="right">
+                        <span class="btn-small red del_article">删除</span>
+                    </a>
+
+                    <a href="{{ url_for('admin.editor') }}?id={{ article.id }}" class="right">
+                        <span class="btn-small blue">编辑</span>
+                    </a>
+                </span>
+            </dd>
+        {% endfor %}
+        </li>
+    </ul>
+
+{#    {% set loop_time=[] %}#}
+{#    <dl class="collection with-header archives">#}
+{#        {% for article in articles %}#}
+{##}
+{#            {% if article.time.year not in loop_time %}#}
+{#                {% if loop_time|length != 0 %}#}
+{#                    </dl><dl class="collection with-header">#}
+{#                {% endif %}#}
+{#                <dt class="collection-header">{{ article.time.year }}</dt>#}
+{#                {% if loop_time.append(article.time.year) %}{% endif %}#}
+{#            {% endif %}#}
+{#            <dd class="collection-item">#}
+{#                <a href="{{ url_for('main.detail', article_id = article.id) }}">#}
+{#                    {{ article.title }}#}
+{#                </a>#}
+{#                <a href="{{ url_for('admin.delete') }}?id={{ article.id }}" class="right">#}
+{#                    <span class="del_article btn-small red">删除</span>#}
+{#                </a>#}
+{#                <a href="{{ url_for('admin.editor') }}?id={{ article.id }}" class="right">#}
+{#                    <span class="btn-small blue">编辑</span>#}
+{#                </a>#}
+{#            </dd>#}
+{#        {% endfor %}#}
+{#    </dl>#}
+
+    {% if anoymous_article.count() != 0 %}
+        <dl class="archives box">
+        <div class="article_counter">来自匿名用户的文章有{{ anoymous_article.count() }}篇</div>
+
+        {% set loop_time=[] %}
+        <ul class="collapsible">
+        <li>
+            {% for article in anoymous_article %}
+                {% if article.time.year not in loop_time %}
+                    {% if loop_time|length != 0 %}
+                        </div></li><li>
+                    {% endif %}
+                    <dt class="collapsible-header">{{ article.time.year }}</dt>
+                    <div class="collapsible-body">
+                    {% if loop_time.append(article.time.year) %}{% endif %}
+                {% endif %}
+                <dd class="archive-lines">
+                    <span>
+                        <a href="{{ url_for('main.detail', article_id = article.id) }}">{{ article.title }}</a>
+                        <a href="{{ url_for('admin.delete') }}?id={{ article.id }}" class="right">
+                            <span class="btn-small red del_article">删除</span>
+                        </a>
+                        <a href="{{ url_for('admin.editor') }}?id={{ article.id }}" class="right">
+                            <span class="btn-small blue">编辑</span>
+                        </a>
+                    </span>
+                </dd>
+            {% endfor %}
+            </li>
+        </ul>
+
+{#        {% set loop_time=[] %}#}
+{#        <dl class="collection with-header archives">#}
+{#            {% for article in anoymous_article %}#}
+{#                {% if article.time.year not in loop_time %}#}
+{#                    {% if loop_time|length != 0 %}#}
+{#                        </dl><dl class="collection with-header">#}
+{#                    {% endif %}#}
+{#                    <dt class="collection-header">{{ article.time.year }}</dt>#}
+{#                    {% if loop_time.append(article.time.year) %}{% endif %}#}
+{#                {% endif %}#}
+{#                <dd class="collection-item">#}
+{#                <a href="{{ url_for('main.detail', article_id = article.id) }}">#}
+{#                    {{ article.title }}#}
+{#                </a>#}
+{#                <a href="{{ url_for('admin.delete') }}?id={{ article.id }}" class="right">#}
+{#                    <span class="del_article btn-small red">删除</span>#}
+{#                </a>#}
+{#                <a href="{{ url_for('admin.editor') }}?id={{ article.id }}" class="right">#}
+{#                    <span class="btn-small blue">编辑</span>#}
+{#                </a>#}
+{#            </dd>#}
+{#                {% endfor %}#}
+{#            </dl>#}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% if not pjax %}
+    {% extends 'base.html' %}
+{% else %}
+    {% extends 'pjax.html' %}
+{% endif %}
+{% block title %}
+关于 - {{ config['SITE_NAME'] }}
+{% endblock %}
+{% block content %}
+<article class="box article_block">
+<p>
+    <h2>版权</h2>
+    <p>如果没有特殊声明，本站的文章及其他作品版权归作者所有。如需转载，请联系<a href="mailto:lindsay.touho@gmail.com"> Lindsay </a></p>
+    <hr>
+    <h2>隐私</h2>
+    <p><a href="https://www.remilia.me">本站</a>仅记录 <strong>有登陆行为的用户</strong> 以及 <strong>评论者</strong> 的 ip ，用来对抗暴力破解密码和垃圾评论等恶意行为。保证不会公开用户的任何隐私。</p>
+    <hr>
+    <h2>其他</h2>
+    <p>以前写的一些文章都删了，因为觉得根本没用心写吧，只是随便水，不喜欢。再加上在准备考研，没时间写新的，这个博客直接就空了（苦笑），先这么放着吧。</p>
+    <hr>
+    <p>本站主要使用的资源和框架有：<br>
+        <a href="https://palletsprojects.com/p/flask/" target="_blank">Flask</a><br>
+        <a href="https://github.com/josephernest/writing" target="_blank"> Writing </a><br>
+        <a href="https://katex.org/" target="_blank"> Katex </a><br>
+        <a href="https://materializecss.com/" target="_blank"> Materialize </a><br>
+    </p>
+</p>
+</article>
+{% endblock %}

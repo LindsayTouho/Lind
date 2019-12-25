@@ -1,0 +1,39 @@
+{% extends 'admin_base.html' %}
+{% block title%}管理{% endblock %}
+{% block content %}
+    <section class="card col m3 s11" id="user_information">
+        <dl>
+            <dt>用户名：</dt>
+            <dd>{{ user.username | safe }}</dd>
+            <dt>邮箱：</dt>
+            <dd>{{ user.email | safe }}</dd>
+        </dl>
+    </section>
+    <section class="card col m4 s11" id="recent_login">
+    登陆信息 <a href="{{ url_for('admin.clear_login_info') }}">(清除)</a> ：
+        <table>
+            <tr><th> ip地址 </th><th> 状态 </th><th> 时间 </th></tr>
+            {% for i in recent_login %}
+            <tr> <td> {{ i.ip_addr | safe }} </td> <td>{% if i.is_correct_passwd %} 成功 {% else %} 失败 {% endif %}</td> <td> {{ i.time | datetime_filter | safe }} </td></tr>
+            {% endfor %}
+        </table>
+    </section>
+    <section class="card col m3 s11" id="draft">
+        草稿：
+        <ul>
+            {% for i in drafts %}
+            <li><a href="{{ url_for('admin.editor') }}?id={{ i.id }}">{{ i.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section class="card col m3 s11" id="black_list">
+        黑名单：
+        <ul>
+        {% for item in blacklist %}
+            <li>{{ item.ip_addr | safe }} {{ item.time | datetime_filter | safe}}</li>
+
+        {% endfor %}
+        </ul>
+
+    </section>
+{% endblock %}

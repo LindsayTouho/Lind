@@ -1,0 +1,62 @@
+{% macro article_summary_block(article) %}
+<section class="col s12 card article_block z-depth-1">
+{#    <div class="card-image">#}
+{#          <img src="{{ url_for('static', filename='images/test.jpg') }}" alt="card-image">#}
+          <a href="{{ url_for("main.detail",article_id=article.id) }}"><h1 class="article_title card-title">{{ article.title|safe }}</h1></a>
+{#    </div>#}
+{#    <a href="{{ url_for("main.detail",article_id=article.id) }}"><h1 class="article_title card-title">{{ article.title|safe }}</h1></a>#}
+
+
+        <div class="block_info"><em>Writen By {{ article.author.username|safe }} On {{ article.time|datetime_filter|safe }}</em></div>
+        <div class=" card-content">{{ (article.text)|summary|html_ele_block|safe }}</div>
+    {% if article.text|summary|length < article.text|length %}
+        <div class="read_more card-action"><a href="{{ url_for("main.detail", article_id=article.id) }}#more" class=" btn">MORE</a></div>
+    {% endif %}
+</section>
+{% endmacro %}
+
+
+{% macro article_detail_block(article) %}
+<article class="article_block">
+    <h1>{{ article.title|safe }}</h1>
+    <em>Written By {{ article.author.username|safe }} On {{ article.time|datetime_filter|safe }}</em>
+    <hr>
+    <div class="card-content">{{ (article.text)|html_ele_block|safe }}</div>
+    <div class="tags">
+        {% for tag in article.tags %}
+                <a href="{{ url_for('main.tag',tag_name=tag.tag_name) }}">#{{ tag.tag_name }}</a>
+        {% endfor %}
+    </div>
+</article>
+{% endmacro %}
+
+
+{% macro page_index(func, count, current_index) %}
+<div class="pagination">
+{% if current_index==0 %}
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+{% else %}
+    <li class="waves-effect"><a href="{{ url_for(func,num=current_index - 1) }}"><i class="material-icons">chevron_left</i></a></li>
+{% endif %}
+{% if current_index - 3 > 0 %}
+    <li class="waves-effect"><a href={{ url_for(func,num=0) }}>1</a></li>
+    <span>...</span>
+{% endif %}
+{% for i in range( [0, current_index - 3]|max, [count, current_index + 3]|min) %}
+    {% if i == current_index %}
+        <li class="active"><a href="#!">{{ i + 1 }}</a></li>
+    {% else %}
+        <li class="waves-effect"><a href="{{ url_for(func,num=i) }}">{{ i + 1 }}</a></li>
+    {% endif %}
+{% endfor %}
+{% if current_index + 3 < count %}
+    <span>...</span>
+    <li class="waves-effect"><a href="{{ url_for(func,num=count - 1) }}">{{ count }}</a></li>
+{% endif %}
+{% if current_index==count-1 %}
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+{% else %}
+    <li class="waves-effect"><a href="{{ url_for(func,num=current_index + 1) }}"><i class="material-icons">chevron_right</i></a></li>
+{% endif %}
+</div>
+{% endmacro %}

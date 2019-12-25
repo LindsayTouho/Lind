@@ -1,0 +1,10 @@
+Flask
+flask-sqlalchemy
+flask-login
+flask-script
+sqlalchemy
+werkzeug
+mistune
+pygments
+Pillow
+requests

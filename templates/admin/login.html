@@ -1,0 +1,38 @@
+{% extends 'admin_base.html' %}
+{% block title %}登陆 - {{ config['SITE_NAME'] }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+      <script>
+          function verified() {
+              $(".login button").removeAttr("disabled")
+          }
+      </script>
+{% endblock %}
+{% block content %}
+<div class="login_bar box">
+    <form action="" method="post">
+        <div class="login_bar center-align">
+            <div class="input-field col s9 offset-s1 m6 offset-m3">
+                <label for="username" class="active">用户名：</label><br>
+                <input type="text" id="username" name="username" class="validate" required><br><br>
+            </div>
+            <div class="input-field col s9 offset-s1 m6 offset-m3">
+                <label for="password">密码：</label><br>
+                <input type="password" id="password" name="password" class="validate" required><br><br>
+            </div>
+            <div class="cls"></div>
+            <div class="g-recaptcha col s11 offset-s1 m1 offset-m3" data-sitekey="{{ config['G_VERIFY_SITE_KEY'] }}" data-callback="verified"></div>
+            <label for="remember_me" class="center-align">
+                    <input type="checkbox" name="remember_me" id="remember_me" class="filled-in">
+                    <span>记住我</span>
+                </label>
+            <div class="cls"></div>
+            <button type="submit" class="center-align btn waves-effect waves-light" >
+                Login
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

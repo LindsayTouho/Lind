@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes">
+        <meta name="google-site-verification" content="6BLMRR_Ezm4r32CmceS8j0CXYq9Z2VUkSjaSul6ealk" />
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Katex -->
+{#        <style>#}
+        {#@font-face { font-family: texroman; src: url({{ url_for('static', filename='plugin/cmunrm.otf') }}); font-weight: 400; font-style: normal; font-stretch: normal; }#}
+        {#@font-face { font-family: texroman; src: url({{ url_for('static', filename='plugin/cmunrb.otf')}}); font-weight: 700; font-style: normal; font-stretch: normal; }#}
+{#        </style>#}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous" > </script>
+
+        <script src="{{ url_for('static',filename='scripts/jquery.pjax.js') }}"></script>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/highlight.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+<nav class="nav-wrapper teal darken-2">
+    {% block aside %}
+        <a href="{{ url_for('main.index') }}" class="brand-logo right">{{ config['SITE_NAME'] }}</a>
+        <ul class="left hide-on-med-and-down">
+            <li><a href="{{ url_for('main.index') }}">首 页</a></li>
+            <li><a href="{{ url_for('main.archives') }}">归 档</a></li>
+            {% for page in nav_pages %}
+            <li><a href="{{ url_for('main.nav_page', page_name=page.type[5:]) }}">{{ page.title }}</a></li>
+            {% endfor%}
+{#            <li><a href="{{ url_for('main.friend_links') }}">友 链</a></li>#}
+{#            <li><a href="{{ url_for('main.about') }}">关 于</a></li>#}
+        </ul>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="{{ url_for('main.index') }}">首 页</a></li>
+            <li><a href="{{ url_for('main.archives') }}">归 档</a></li>
+            {% for page in nav_pages %}
+            <li><a href="{{ url_for('main.nav_page', page_name=page.type[5:]) }}">{{ page.title }}</a></li>
+            {% endfor%}
+{#            <li><a href="{{ url_for('main.friend_links') }}">友 链</a></li>#}
+{#            <li><a href="{{ url_for('main.about') }}">关 于</a></li>#}
+        </ul>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    {% endblock %}
+</nav>
+
+<main id="main" class="row container">
+    {% block content %}
+    {% endblock %}
+</main>
+<footer class="page-footer teal darken-2">
+    {% block footer %}
+        &copy; Copyright 2018-2019 by <a href="{{ url_for('main.about') }}">Lindsay</a>
+    {% endblock %}
+</footer>
+{% block script %}
+<script>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                {% for message in messages %}
+                    flash("{{ message }}");
+                {% endfor %}
+        {% endif %}
+    {% endwith %}
+</script>
+{% endblock %}
+</body>

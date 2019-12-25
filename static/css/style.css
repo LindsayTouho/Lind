@@ -1,0 +1,22 @@
+body {font-family:  "PingFang SC", 'Lato', "Microsoft YaHei", sans-serif;display: flex;min-height: 100vh;flex-direction: column;font-size: 1.1rem;}
+main {flex: 1 0 auto;}
+strong{font-weight: bold;}
+.read_more{margin: 2rem;text-align: center;}
+.article_summery{margin: 1rem;}
+.article_block h1{font-size: 2.3rem;}
+.article_block h2{font-size: 2rem;}
+.article_block h3{font-size: 1.7rem;}
+.article_block h4{font-size: 1.4rem;}
+.article_block h5{font-size: 1.1rem;}
+.article_block img{display:block; max-width: 100%; text-align: center; margin: auto}
+.article_block pre {white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -o-pre-wrap;}
+.article_title{font-weight: bold !important;text-align: center;font-size: 1.3rem;}
+.block_info, .page-footer, .pagination{text-align: center;}
+#user_information, #recent_login, #draft, #black_list{margin: 1rem;overflow: auto;}
+.archives a{display: inline-block;}
+.article_counter{margin-top: 1rem;overflow: hidden;line-height: 3rem;}
+.collection-item{overflow: hidden;}
+.login_bar{text-align: center;}
+.preload-container{position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);}
+.cls{clear: both;}
+.archive-lines{height: 2.5rem}

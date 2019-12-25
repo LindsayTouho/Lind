@@ -1,0 +1,15 @@
+{% if not pjax %}
+    {% extends 'base.html' %}
+{% else %}
+    {% extends 'pjax.html' %}
+{% endif %}
+{% import "_macros.html" as macros %}
+
+{% block title%}{{ config['SITE_NAME'] }}{% endblock %}
+
+{% block content %}
+    {% for article in articles %}
+        {{ macros.article_summary_block(article) }}
+    {% endfor %}
+    {{ macros.page_index('main.page', page_count, current_page) }}
+{% endblock %}

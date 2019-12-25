@@ -1,0 +1,26 @@
+{% if not pjax %}
+    {% extends 'base.html' %}
+{% else %}
+    {% extends 'pjax.html' %}
+{% endif %}
+{% import '_macros.html' as macros%}
+
+{% block title %}归档 - {{ config['SITE_NAME'] }}{% endblock %}
+{% block content %}
+    {% set loop_time=[] %}
+    <ul class="collapsible">
+    <li>
+        {% for article in articles %}
+            {% if article.time.year not in loop_time %}
+                {% if loop_time|length != 0 %}
+                    </div></li><li>
+                {% endif %}
+                <dt class="collapsible-header">{{ article.time.year }}</dt>
+                <div class="collapsible-body">
+                {% if loop_time.append(article.time.year) %}{% endif %}
+            {% endif %}
+            <dd class="archive-lines"><span><a href="{{ url_for('main.detail', article_id = article.id) }}">{{ article.title }}</a></span></dd>
+        {% endfor %}
+        </li>
+    </ul>
+{% endblock %}
